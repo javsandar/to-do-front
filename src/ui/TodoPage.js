@@ -1,27 +1,37 @@
 import { AddTodo } from "./AddTodo";
 import { RemainingTodos } from "./RemainingTodos";
 import { useEffect, useState } from "react";
-import TodosAPI from "../infraestructure/TodosAPI";
+import ApiValidation from "../application/ApiValidation";
 
 export function TodoPage() {
     const [todoText, setTodoText] = useState("")
     const [todos, setTodos] = useState([])
+    console.log(todos)
+    function loadTodos() { 
+        ApiValidation.get().then((todos) => setTodos(todos)) 
+    }
 
-    function loadTodos(){TodosAPI.get(setTodos)}
+    function postTodo() { 
+        ApiValidation.post(todoText)
+        .then((todo) => setTodos([...todos, todo])) 
+    }
 
-    function postTodo(){TodosAPI.post(setTodos, todoText)}
+    useEffect(() => { 
+        loadTodos() 
+    }, []);
 
-    useEffect(() => {loadTodos()},[]);
-    
-    const handleChange = (event) => {setTodoText(event.target.value)}
+    const handleChange = (event) => { setTodoText(event.target.value) }
 
-    const handleClick = () => {postTodo()}
+    const handleClick = () => { postTodo() }
 
+    const handleCheckbox = () => {
+        
+    }
     return (
         <div>
             <h1>Remaining To-dos</h1>
-            <RemainingTodos todos={todos} />
-            <AddTodo handleChange={handleChange} handleClick={handleClick} todoText={todoText}/>
+            <RemainingTodos todos={todos} handleCheckbox={handleCheckbox} />
+            <AddTodo handleChange={handleChange} handleClick={handleClick} todoText={todoText} />
         </div>
     )
 }
