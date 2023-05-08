@@ -1,15 +1,16 @@
 import TodosApi from "../infraestructure/TodosApi";
-
-function getAll() {
-  return TodosApi.getAll().then((data) => data.length === 0)
-    ? TodosApi.getAll()
+function validate(request) {
+  return request.then((data) => data.length === 0)
+    ? request
     : false;
 }
 
+function getAll() {
+  return validate(TodosApi.getAll())
+}
+
 function getRemaining() {
-  return TodosApi.getRemaining().then((data) => data.length === 0)
-    ? TodosApi.getRemaining()
-    : false;
+  return validate(TodosApi.getRemaining())
 }
 
 function post(todoText) {
@@ -26,7 +27,7 @@ function post(todoText) {
 
 const ApiValidationObject = {
   getAll,
- getRemaining,
+  getRemaining,
   post,
 };
 
