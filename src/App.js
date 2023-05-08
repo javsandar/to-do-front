@@ -1,13 +1,12 @@
-import './App.css';
-import { TodoPage } from './ui/TodoPage';
+import "./App.css";
+import { TodoPage } from "./ui/TodoPage";
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <TodoPage/>
+        <TodoPage />
       </header>
-
     </div>
   );
 }

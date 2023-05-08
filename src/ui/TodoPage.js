@@ -10,17 +10,15 @@ export function TodoPage() {
   const [remainingTodos, setRemainingTodos] = useState([]);
 
   function loadAllTodos() {
-    ApiValidation.getAll().then((todos) => setTodos(todos));
+    ApiValidation.getAll().then((data) => setTodos(data));
   }
   function loadRemainingTodos() {
-    ApiValidation.getRemaining().then((remainingTodos) =>
-      setRemainingTodos(remainingTodos)
-    );
+    ApiValidation.getRemaining().then((data) => setRemainingTodos(data));
   }
 
   function postTodo() {
-    ApiValidation.post(todoText).then((todo) =>
-      setTodos([...todos, todo], setRemainingTodos([...remainingTodos, todo]))
+    ApiValidation.post(todoText).then((data) =>
+      setTodos([...todos, data], setRemainingTodos([...remainingTodos, data]))
     );
   }
 
