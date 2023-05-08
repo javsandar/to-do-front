@@ -36,3 +36,29 @@
     transform: rotate(360deg);
   }
 }
+
+
+#todosDiv {
+  width: 1000px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  background-color: rgb(92, 92, 92);
+}
+#todosDiv,ul {
+  list-style: none;
+}
+
+#remainingTodosDiv {
+  width: 50%;
+}
+#finishedTodosDiv {
+  width: 50%;
+}
+.finishedLi {
+  text-decoration: line-through;
+  color: rgba(255, 255, 255, 0.377);
+}
+#addTodoDiv {
+  margin-left: 170px;
+}

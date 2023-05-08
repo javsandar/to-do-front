@@ -1,12 +1,25 @@
-function get(){
-    return fetch('/todos?finished=false')
+function getAll() {
+  return fetch("/todos")
     .then((response) => response.json())
-    .then((data) => data)
+    .then((data) => data);
 }
 
-function post(requestOptions){
-    return fetch('/todos', requestOptions)
-    .then((response)=> response.json())
-    .then((data) => data)
+function getRemaining() {
+  return fetch("/todos?finished=false")
+    .then((response) => response.json())
+    .then((data) => data);
 }
-export default { get, post };
+
+function post(requestOptions) {
+  return fetch("/todos", requestOptions)
+    .then((response) => response.json())
+    .then((data) => data);
+}
+
+const TodosAPIObject = {
+  getAll,
+  getRemaining,
+  post,
+};
+
+export default TodosAPIObject;

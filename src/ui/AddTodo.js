@@ -1,6 +1,6 @@
 export function AddTodo(props) {
     return (
-        <div>
+        <div id="addTodoDiv">
             <input
                 value={props.todoText}
                 onChange={props.handleChange}
