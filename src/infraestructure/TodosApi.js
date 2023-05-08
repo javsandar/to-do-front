@@ -1,3 +1,9 @@
+function put(requestOptions, id) {
+  return fetch("/todos/{id}", requestOptions)
+    .then((response) => response.json())
+    .then((data) => data);
+}
+
 function getAll() {
   return fetch("/todos")
     .then((response) => response.json())
@@ -17,6 +23,7 @@ function post(requestOptions) {
 }
 
 const TodosAPIObject = {
+  put,
   getAll,
   getRemaining,
   post,

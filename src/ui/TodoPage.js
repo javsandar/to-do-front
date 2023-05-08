@@ -15,6 +15,7 @@ export function TodoPage() {
   function loadRemainingTodos() {
     ApiValidation.getRemaining().then((data) => setRemainingTodos(data));
   }
+  console.log(todos)
 
   function postTodo() {
     ApiValidation.post(todoText).then((data) =>
@@ -35,16 +36,17 @@ export function TodoPage() {
     postTodo();
   };
 
-  const handleCheckbox = () => {};
+  
   return (
     <div>
       <h1>Todo List</h1>
       <div id="todosDiv">
         <RemainingTodos
           todos={remainingTodos}
-          handleCheckbox={handleCheckbox}
         />
-        <FinishedTodos todos={todos} handleCheckbox={handleCheckbox} />
+        <FinishedTodos
+          todos={todos}
+        />
         <AddTodo
           handleChange={handleChange}
           handleClick={handleClick}

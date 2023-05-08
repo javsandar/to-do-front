@@ -1,15 +1,21 @@
-export function RemainingTodos({ todos, handleCheckbox}) {
-    return (
-        <div id="remainingTodosDiv">
-        <h2>Remaining Todos</h2>
-        <ul>
+import Todo from "./Todo";
 
-            {todos.map((todo) => {
-                return (<li key={todo.id}>
-                            <input type="checkbox" onChange={handleCheckbox}></input>{todo.text}
-                        </li>);
-            })}
-        </ul>
-        </div>
-    );
+export function RemainingTodos({ todos }) {
+  return (
+    <div id="remainingTodosDiv">
+      <h2>Remaining</h2>
+      <ul>
+        {todos.map((todo) => {
+          return (
+            <Todo
+              key={todo.id}
+              id={todo.id}
+              text={todo.text}
+              isFinished={todo.finished}
+            />
+          );
+        })}
+      </ul>
+    </div>
+  );
 }

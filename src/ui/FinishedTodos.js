@@ -1,16 +1,19 @@
-export function FinishedTodos({ todos, handleCheckbox }) {
+import Todo from "./Todo";
+export function FinishedTodos({ todos }) {
   return (
     <div id="finishedTodosDiv">
-      <h2>Finished Todos</h2>
+      <h2>Finished</h2>
       <ul>
         {todos
           .filter((todo) => todo.finished)
-          .map((finishedTodo) => {
+          .map((todo) => {
             return (
-              <li className="finishedLi" key={finishedTodo.id}>
-                <input type="checkbox" onChange={handleCheckbox}></input>
-                {finishedTodo.text}
-              </li>
+              <Todo
+                key={todo.id}
+                id={todo.id}
+                text={todo.text}
+                isFinished={todo.finished}
+              />
             );
           })}
       </ul>

@@ -1,16 +1,18 @@
 import TodosApi from "../infraestructure/TodosApi";
+
+// function modifyIsFinished(id) {
+
+// }
 function validate(request) {
-  return request.then((data) => data.length === 0)
-    ? request
-    : false;
+  return request.then((data) => data.length === 0) ? request : false;
 }
 
 function getAll() {
-  return validate(TodosApi.getAll())
+  return validate(TodosApi.getAll());
 }
 
 function getRemaining() {
-  return validate(TodosApi.getRemaining())
+  return validate(TodosApi.getRemaining());
 }
 
 function post(todoText) {
@@ -25,7 +27,21 @@ function post(todoText) {
   return TodosApi.post(requestOptions);
 }
 
+function put(todoText, id, finished) {
+  const requestOptions = {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      id: id,
+      text: todoText,
+      isFinished: finished,
+    }),
+  };
+  return TodosApi.put(requestOptions, id);
+}
+
 const ApiValidationObject = {
+  put,
   getAll,
   getRemaining,
   post,
