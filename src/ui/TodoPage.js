@@ -1,24 +1,26 @@
 import { AddTodo } from "./AddTodo";
 import { RemainingTodos } from "./RemainingTodos";
 import { useEffect, useState } from "react";
-import ApiValidation from "../application/ApiValidation";
 import { FinishedTodos } from "./FinishedTodos";
+import GetRemainingTodos from "../application/GetRemainingTodos";
+import GetAllTodos from "../application/GetAllTodos";
+import CreateTodo from "./../application/CreateTodo";
+import ModifyIsFinishedFromTodo from "./../application/ModifyIsFinishedFromTodo";
 
 export function TodoPage() {
   const [todoText, setTodoText] = useState("");
   const [todos, setTodos] = useState([]);
   const [remainingTodos, setRemainingTodos] = useState([]);
 
-  console.log(todos)
   function loadAllTodos() {
-    ApiValidation.getAll().then((data) => setTodos(data));
+    return GetAllTodos().then((data) => setTodos(data));
   }
   function loadRemainingTodos() {
-    return ApiValidation.getRemaining().then((data) => setRemainingTodos(data));
+    return GetRemainingTodos().then((data) => setRemainingTodos(data));
   }
 
   function postTodo() {
-    ApiValidation.post(todoText).then((data) =>
+    CreateTodo(todoText).then((data) =>
       setTodos([...todos, data], setRemainingTodos([...remainingTodos, data]))
     );
   }
@@ -35,15 +37,11 @@ export function TodoPage() {
   const handleClick = () => {
     postTodo();
   };
-  
-  function getTodoProps(id, text, isFinished) {
-    const props = [id, text, !isFinished]
-    return props
-  }
 
-  const onChangeChecked = () => {
-    const props = getTodoProps;
-    ApiValidation.put(props[0], props[1], props[2]).then(loadRemainingTodos());
+  async function onChangeChecked(id, text, isFinished) {
+    ModifyIsFinishedFromTodo(id, text, isFinished);
+    await loadAllTodos();
+    await loadRemainingTodos();
   }
   return (
     <div>
@@ -51,14 +49,11 @@ export function TodoPage() {
       <div id="todosDiv">
         <RemainingTodos
           todos={remainingTodos}
-          getTodoProps={getTodoProps}
           onChangeChecked={onChangeChecked}
         />
-        <FinishedTodos
-          todos={todos}
-          getTodoProps={getTodoProps}
-          onChangeChecked={onChangeChecked}
-        />
+        <FinishedTodos 
+          todos={todos} 
+          onChangeChecked={onChangeChecked} />
         <AddTodo
           handleChange={handleChange}
           handleClick={handleClick}

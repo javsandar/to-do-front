@@ -1,5 +1,5 @@
 import Todo from "./Todo";
-export function FinishedTodos({ todos, getTodoId, onChangeChecked }) {
+export function FinishedTodos({ todos, onChangeChecked }) {
   return (
     <div id="finishedTodosDiv">
       <h2>Finished</h2>
@@ -13,7 +13,6 @@ export function FinishedTodos({ todos, getTodoId, onChangeChecked }) {
                 id={todo.id}
                 text={todo.text}
                 isFinished={todo.finished}
-                getTodoId={getTodoId}
                 onChangeChecked={onChangeChecked}
               />
             );

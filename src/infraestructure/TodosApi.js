@@ -1,25 +1,26 @@
-function put(requestOptions, id) {
-  return fetch("/todos/"+id, requestOptions)
-    .then((response) => response.json())
-    .then((data) => data);
+async function put(requestOptions, id) {
+    const response = await fetch("/todos/"+ id, requestOptions)
+    const data = await response.json()
+    return data;
 }
 
-function getAll() {
-  return fetch("/todos")
-    .then((response) => response.json())
-    .then((data) => data);
+async function getAll() {
+  const response = await fetch("/todos")
+  const data = await response.json()
+  return data;
 }
 
-function getRemaining() {
-  return fetch("/todos?finished=false")
-    .then((response) => response.json())
-    .then((data) => data);
+
+async function getRemaining() {
+  const response = await fetch("/todos?finished=false")
+  const data = await response.json()
+  return data;
 }
 
-function post(requestOptions) {
-  return fetch("/todos", requestOptions)
-    .then((response) => response.json())
-    .then((data) => data);
+async function post(requestOptions) {
+  const response = await fetch("/todos", requestOptions)
+  const data = await response.json()
+  return data;
 }
 
 const TodosAPIObject = {
