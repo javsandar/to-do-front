@@ -2,33 +2,22 @@ import { AddTodo } from "./AddTodo";
 import { RemainingTodos } from "./RemainingTodos";
 import { useEffect, useState } from "react";
 import { FinishedTodos } from "./FinishedTodos";
-import GetRemainingTodos from "../application/GetRemainingTodos";
-import GetAllTodos from "../application/GetAllTodos";
-import CreateTodo from "./../application/CreateTodo";
-import ModifyIsFinishedFromTodo from "./../application/ModifyIsFinishedFromTodo";
+import getAllTodos from "../application/GetAllTodos";
+import createTodo from "../application/CreateTodo";
+import modifyIsFinishedFromTodo from "./../application/ModifyIsFinishedFromTodo";
 
 export function TodoPage() {
   const [todoText, setTodoText] = useState("");
   const [todos, setTodos] = useState([]);
-  const [remainingTodos, setRemainingTodos] = useState([]);
-
-  function loadAllTodos() {
-    return GetAllTodos().then((data) => setTodos(data));
-  }
-  function loadRemainingTodos() {
-    return GetRemainingTodos().then((data) => setRemainingTodos(data));
-  }
+  let [control, setControl] = useState(false); /* booleano o int? */
 
   function postTodo() {
-    CreateTodo(todoText).then((data) =>
-      setTodos([...todos, data], setRemainingTodos([...remainingTodos, data]))
-    );
+    createTodo(todoText).then((data) => setTodos([...todos, data]));
   }
 
   useEffect(() => {
-    loadRemainingTodos();
-    loadAllTodos();
-  }, []);
+    getAllTodos().then((data) => setTodos(data));
+  }, [control]);
 
   const handleChange = (event) => {
     setTodoText(event.target.value);
@@ -39,21 +28,16 @@ export function TodoPage() {
   };
 
   async function onChangeChecked(id, text, isFinished) {
-    ModifyIsFinishedFromTodo(id, text, isFinished);
-    await loadAllTodos();
-    await loadRemainingTodos();
+    await modifyIsFinishedFromTodo(id, text, isFinished);
+    setControl(!control);
   }
+
   return (
     <div>
       <h1>Todo List</h1>
       <div id="todosDiv">
-        <RemainingTodos
-          todos={remainingTodos}
-          onChangeChecked={onChangeChecked}
-        />
-        <FinishedTodos 
-          todos={todos} 
-          onChangeChecked={onChangeChecked} />
+        <RemainingTodos todos={todos} onChangeChecked={onChangeChecked} />
+        <FinishedTodos todos={todos} onChangeChecked={onChangeChecked} />
         <AddTodo
           handleChange={handleChange}
           handleClick={handleClick}

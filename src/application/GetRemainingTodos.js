@@ -1,6 +1,10 @@
-import TodosApi from "../infraestructure/TodosApi";
-import ValidationsObj from "./Validations";
+import TodosApiObj from "../infraestructure/TodosApi";
 
-export default function GetRemainingTodos() {
-    return ValidationsObj.validateInitialGet(TodosApi.getRemaining());
-  }
+export default function getRemainingTodos() {
+    return TodosApiObj.getRemaining();
+}
+
+
+/* ESTA CLASE ESTA INUTILIZADA DEBIDO A QUE DURANTE 
+    EL PROYECTO SE HA ELIMINADO UN ENDPOINT 
+        "/todos?finished=false" */

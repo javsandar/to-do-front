@@ -1,6 +1,5 @@
-import TodosApi from "../infraestructure/TodosApi";
-import ValidationsObj from "./Validations";
+import TodosAPIObject from './../infraestructure/TodosApi';
 
-export default function GetAllTodos() {
-    return ValidationsObj.validateInitialGet(TodosApi.getAll());
-  }
+export default function getAllTodos() {
+  return TodosAPIObject.getAll();
+}

@@ -1,8 +1,7 @@
 import { useState } from "react";
 
-export default function Todo({id, text, isFinished, onChangeChecked }) {
+export default function Todo({ id, text, isFinished, onChangeChecked }) {
   const [checked, setChecked] = useState(isFinished);
-  isFinished = checked;
   return (
     <li
       style={
@@ -16,8 +15,11 @@ export default function Todo({id, text, isFinished, onChangeChecked }) {
     >
       <input
         type="checkbox"
-        checked={isFinished}
-        onChange={() => [setChecked(!checked), onChangeChecked(id, text, isFinished)]}
+        checked={checked}
+        onChange={() => [
+          setChecked(!checked),
+          onChangeChecked(id, text, isFinished),
+        ]}
       />
       {text}
     </li>

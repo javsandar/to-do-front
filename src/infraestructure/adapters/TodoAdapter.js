@@ -1,4 +1,4 @@
-import TodosApi from "../TodosApi";
+import TodosApiObj from "../TodosApi";
 
 function generateBodyForPost(text) {
   const requestOptions = {
@@ -10,7 +10,7 @@ function generateBodyForPost(text) {
     }),
   };
 
-  return TodosApi.post(requestOptions);
+  return TodosApiObj.post(requestOptions);
 }
 
 function generateBodyForPut(id, text, isFinished) {
@@ -24,7 +24,7 @@ function generateBodyForPut(id, text, isFinished) {
     }),
   };
 
-  return TodosApi.put(requestOptions, id);
+  return TodosApiObj.put(requestOptions, id);
 }
 
 const TodoAdapterObj = {
