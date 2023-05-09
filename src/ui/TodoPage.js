@@ -9,13 +9,13 @@ export function TodoPage() {
   const [todos, setTodos] = useState([]);
   const [remainingTodos, setRemainingTodos] = useState([]);
 
+  console.log(todos)
   function loadAllTodos() {
     ApiValidation.getAll().then((data) => setTodos(data));
   }
   function loadRemainingTodos() {
-    ApiValidation.getRemaining().then((data) => setRemainingTodos(data));
+    return ApiValidation.getRemaining().then((data) => setRemainingTodos(data));
   }
-  console.log(todos)
 
   function postTodo() {
     ApiValidation.post(todoText).then((data) =>
@@ -35,17 +35,29 @@ export function TodoPage() {
   const handleClick = () => {
     postTodo();
   };
-
   
+  function getTodoProps(id, text, isFinished) {
+    const props = [id, text, !isFinished]
+    return props
+  }
+
+  const onChangeChecked = () => {
+    const props = getTodoProps;
+    ApiValidation.put(props[0], props[1], props[2]).then(loadRemainingTodos());
+  }
   return (
     <div>
       <h1>Todo List</h1>
       <div id="todosDiv">
         <RemainingTodos
           todos={remainingTodos}
+          getTodoProps={getTodoProps}
+          onChangeChecked={onChangeChecked}
         />
         <FinishedTodos
           todos={todos}
+          getTodoProps={getTodoProps}
+          onChangeChecked={onChangeChecked}
         />
         <AddTodo
           handleChange={handleChange}

@@ -1,6 +1,6 @@
 import Todo from "./Todo";
 
-export function RemainingTodos({ todos }) {
+export function RemainingTodos({ todos, getTodoProps, onChangeChecked }) {
   return (
     <div id="remainingTodosDiv">
       <h2>Remaining</h2>
@@ -12,6 +12,8 @@ export function RemainingTodos({ todos }) {
               id={todo.id}
               text={todo.text}
               isFinished={todo.finished}
+              getTodoProps={getTodoProps}
+              onChangeChecked={onChangeChecked}
             />
           );
         })}

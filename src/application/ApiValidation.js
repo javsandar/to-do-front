@@ -27,14 +27,14 @@ function post(todoText) {
   return TodosApi.post(requestOptions);
 }
 
-function put(todoText, id, finished) {
+function put(id, text, isFinished) {
   const requestOptions = {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       id: id,
-      text: todoText,
-      isFinished: finished,
+      text: text,
+      isFinished: isFinished,
     }),
   };
   return TodosApi.put(requestOptions, id);
