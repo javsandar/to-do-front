@@ -9,28 +9,29 @@ import modifyIsFinishedFromTodo from "./../application/ModifyIsFinishedFromTodo"
 export function TodoPage() {
   const [todoText, setTodoText] = useState("");
   const [todos, setTodos] = useState([]);
-  let [control, setControl] = useState(false); /* booleano o int? */
-
-  function postTodo() {
-    createTodo(todoText).then((data) => setTodos([...todos, data]));
-  }
 
   useEffect(() => {
     getAllTodos().then((data) => setTodos(data));
-  }, [control]);
+  }, []);
 
   const handleChange = (event) => {
     setTodoText(event.target.value);
   };
 
   const handleClick = () => {
-    postTodo();
+    createTodo(todoText).then((data) => setTodos([...todos, data]));
   };
 
-  async function onChangeChecked(id, text, isFinished) {
-    await modifyIsFinishedFromTodo(id, text, isFinished);
-    setControl(!control);
+  function updateTodo(id, isFinished) {
+    const updatedTodos = [...todos];
+    const index = updatedTodos.findIndex((todo) => todo.id === id);
+    updatedTodos[index].finished = isFinished;
+    setTodos(updatedTodos);
   }
+  const onChangeChecked = (id, text, isFinished) => {
+    modifyIsFinishedFromTodo(id, text, isFinished);
+    updateTodo(id, isFinished);
+  };
 
   return (
     <div>

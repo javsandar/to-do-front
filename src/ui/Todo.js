@@ -18,7 +18,7 @@ export default function Todo({ id, text, isFinished, onChangeChecked }) {
         checked={checked}
         onChange={() => [
           setChecked(!checked),
-          onChangeChecked(id, text, isFinished),
+          onChangeChecked(id, text, !checked),
         ]}
       />
       {text}
