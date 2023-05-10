@@ -18,7 +18,6 @@ function generateBodyForPut(id, text, isFinished) {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      id: id,
       text: text,
       isFinished: isFinished,
     }),
