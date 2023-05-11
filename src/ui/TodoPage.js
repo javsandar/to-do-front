@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { FinishedTodos } from "./FinishedTodos";
 import getAllTodos from "../application/GetAllTodos";
 import createTodo from "../application/CreateTodo";
-import updateTodo from "./../application/ModifyIsFinishedFromTodo";
+import updateTodo from "../application/UpdateTodo";
 
 export function TodoPage() {
   const [todoText, setTodoText] = useState("");
