@@ -6,23 +6,23 @@ function generateBodyForPost(text) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       text: text,
-      isFinished: false,
+      finished: false,
     }),
   };
-
+  console.log(requestOptions)
   return TodosApiObj.post(requestOptions);
 }
 
 function generateBodyForPut(id, text, isFinished) {
   const requestOptions = {
-    method: "PUT",
+    method: 'PUT',
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       text: text,
-      isFinished: isFinished,
+      finished: isFinished,
     }),
   };
-
+  console.log(requestOptions)
   return TodosApiObj.put(requestOptions, id);
 }
 

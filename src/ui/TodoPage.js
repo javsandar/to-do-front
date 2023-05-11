@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { FinishedTodos } from "./FinishedTodos";
 import getAllTodos from "../application/GetAllTodos";
 import createTodo from "../application/CreateTodo";
-import modifyIsFinishedFromTodo from "./../application/ModifyIsFinishedFromTodo";
+import updateTodo from "./../application/ModifyIsFinishedFromTodo";
 
 export function TodoPage() {
   const [todoText, setTodoText] = useState("");
@@ -22,15 +22,16 @@ export function TodoPage() {
     createTodo(todoText).then((data) => setTodos([...todos, data]));
   };
 
-  function updateTodo(id, isFinished) {
+  function modifyTodo(id, text, isFinished) {
     const updatedTodos = [...todos];
     const index = updatedTodos.findIndex((todo) => todo.id === id);
+    updatedTodos[index].text = text;
     updatedTodos[index].finished = isFinished;
     setTodos(updatedTodos);
   }
   const onChangeChecked = (id, text, isFinished) => {
-    modifyIsFinishedFromTodo(id, text, isFinished);
-    updateTodo(id, isFinished);
+    updateTodo(id, text, isFinished);
+    modifyTodo(id, text, isFinished);
   };
 
   return (
