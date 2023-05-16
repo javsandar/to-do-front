@@ -2,44 +2,57 @@ import { AddTodo } from "./AddTodo";
 import { RemainingTodos } from "./RemainingTodos";
 import { useEffect, useState } from "react";
 import { FinishedTodos } from "./FinishedTodos";
-import getAllTodos from "../application/GetAllTodos";
+import localGetTodos from "../application/LocalGetTodos";
 import createTodo from "../application/CreateTodo";
 import updateTodo from "../application/UpdateTodo";
 
 export function TodoPage() {
   const [todoText, setTodoText] = useState("");
-  const [todos, setTodos] = useState([]);
+  const [remainingTodos, setRemainingTodos] = useState([]);
+  const [finishedTodos, setFinishedTodos] = useState([]);
 
   useEffect(() => {
-    getAllTodos().then((data) => setTodos(data));
+    localGetTodos(false).then((data) => setRemainingTodos(data));
+    localGetTodos(true).then((data) => setFinishedTodos(data));
   }, []);
 
   const handleChange = (event) => {
     setTodoText(event.target.value);
   };
 
-  const handleClick = () => {
-    createTodo(todoText).then((data) => setTodos([...todos, data]));
+  const handleClick = (e) => {
+    createTodo(todoText).then((data) =>
+      setRemainingTodos([...remainingTodos, data])
+    );
   };
 
-  function modifyTodo(id, text, isFinished) {
-    const updatedTodos = [...todos];
-    const index = updatedTodos.findIndex((todo) => todo.id === id);
-    updatedTodos[index].text = text;
-    updatedTodos[index].finished = isFinished;
-    setTodos(updatedTodos);
+  function updateLists(data) {
+    if (data.finished === false) {
+      setFinishedTodos((todos) => todos.filter((todo) => todo.id !== data.id))
+      setRemainingTodos([...remainingTodos, data])
+    }
+    if (data.finished === true) {
+      setRemainingTodos((todos) => todos.filter((todo) => todo.id !== data.id))
+      setFinishedTodos([...finishedTodos, data])
+    }
   }
-  const onChangeChecked = (id, text, isFinished) => {
-    updateTodo(id, text, isFinished);
-    modifyTodo(id, text, isFinished);
+
+  const onChangeChecked = (id, text, finished) => {
+    updateTodo(id, text, finished).then((data) => updateLists(data));
   };
 
   return (
     <div>
       <h1>Todo List</h1>
       <div id="todosDiv">
-        <RemainingTodos todos={todos} onChangeChecked={onChangeChecked} />
-        <FinishedTodos todos={todos} onChangeChecked={onChangeChecked} />
+        <RemainingTodos
+          todos={remainingTodos}
+          onChangeChecked={onChangeChecked}
+        />
+        <FinishedTodos
+          todos={finishedTodos}
+          onChangeChecked={onChangeChecked}
+        />
         <AddTodo
           handleChange={handleChange}
           handleClick={handleClick}
