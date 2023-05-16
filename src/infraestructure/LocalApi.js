@@ -2,7 +2,7 @@ function post(todo) {
   const response = new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve(todo);
-    }, 10);
+    }, 500);
   });
   return response;
 }
@@ -11,7 +11,7 @@ function getTodos(todos) {
   const response = new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve(todos);
-    }, 10);
+    }, 500);
   });
   return response;
 }
@@ -20,8 +20,9 @@ function put(todo){
     const response = new Promise((resolve, reject) => {
         setTimeout(() => [
             resolve(todo)
-        ], 10)
+        ], 1000)
     })
+    console.log(response)
     return response;
 }
 

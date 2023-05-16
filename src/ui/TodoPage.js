@@ -27,17 +27,18 @@ export function TodoPage() {
   };
 
   function updateLists(data) {
+
     if (data.finished === false) {
       setFinishedTodos((todos) => todos.filter((todo) => todo.id !== data.id))
-      setRemainingTodos([...remainingTodos, data])
+      setRemainingTodos((currentTodos) => [...currentTodos, data])
     }
     if (data.finished === true) {
       setRemainingTodos((todos) => todos.filter((todo) => todo.id !== data.id))
-      setFinishedTodos([...finishedTodos, data])
+      setFinishedTodos((currentTodos) => [...currentTodos, data])
     }
   }
 
-  const onChangeChecked = (id, text, finished) => {
+   const onChangeChecked = (id, text, finished) => {
     updateTodo(id, text, finished).then((data) => updateLists(data));
   };
 
