@@ -2,7 +2,7 @@ import { AddTodo } from "./AddTodo";
 import { RemainingTodos } from "./RemainingTodos";
 import { useEffect, useState } from "react";
 import { FinishedTodos } from "./FinishedTodos";
-import localGetTodos from "../application/LocalGetTodos";
+import getTodos from "../application/GetTodos";
 import createTodo from "../application/CreateTodo";
 import updateTodo from "../application/UpdateTodo";
 
@@ -12,8 +12,8 @@ export function TodoPage() {
   const [finishedTodos, setFinishedTodos] = useState([]);
 
   useEffect(() => {
-    localGetTodos(false).then((data) => setRemainingTodos(data));
-    localGetTodos(true).then((data) => setFinishedTodos(data));
+    getTodos([false]).then((data) => setRemainingTodos(data));
+    getTodos([true]).then((data) => setFinishedTodos(data));
   }, []);
 
   const handleChange = (event) => {
@@ -27,7 +27,7 @@ export function TodoPage() {
   };
 
   function updateLists(data) {
-
+    console.log(data)
     if (data.finished === false) {
       setFinishedTodos((todos) => todos.filter((todo) => todo.id !== data.id))
       setRemainingTodos((currentTodos) => [...currentTodos, data])
