@@ -1,13 +1,24 @@
-export function AddTodo(props) {
+import AddPopup from "./AddPopup";
+
+export function AddTodo({
+  handleClick,
+  todoTextHandler,
+  expireDateHandler,
+  todoText,
+  expireDate,
+  popUp,
+  setPopUp
+}) {
   return (
     <div id="addTodoDiv">
-      <input
-        value={props.todoText}
-        onChange={props.handleChange}
-        type="text"
-        placeholder="Add todo"
-      ></input>
-      <button onClick={props.handleClick}>Add</button>
+      {popUp && <AddPopup
+        handleClick={handleClick}
+        todoTextHandler={todoTextHandler}
+        expireDateHandler={expireDateHandler}
+        todoText={todoText}
+        expireDate={expireDate}
+      />}
+      <button onClick={() => setPopUp(!popUp)}>Add task</button>
     </div>
   );
 }

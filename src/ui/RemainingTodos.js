@@ -12,6 +12,7 @@ export function RemainingTodos({ todos, onChangeChecked }) {
               id={todo.id}
               text={todo.text}
               isFinished={todo.finished}
+              expireDate={todo.expireDate}
               onChangeChecked={onChangeChecked}
             />
           );

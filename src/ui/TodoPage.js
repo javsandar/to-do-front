@@ -8,43 +8,49 @@ import updateTodo from "../application/UpdateTodo";
 
 export function TodoPage() {
   const [todoText, setTodoText] = useState("");
+  const [expireDate, setExpireDate] = useState("");
+
   const [remainingTodos, setRemainingTodos] = useState([]);
   const [finishedTodos, setFinishedTodos] = useState([]);
 
+  const [popUp, setPopUp] = useState(false);
   useEffect(() => {
-    getTodos([false]).then((data) => setRemainingTodos(data));
-    getTodos([true]).then((data) => setFinishedTodos(data));
+    getTodos([false, null]).then((data) => setRemainingTodos(data));
+    getTodos([true, null]).then((data) => setFinishedTodos(data));
   }, []);
 
-  const handleChange = (event) => {
+  const todoTextHandler = (event) => {
     setTodoText(event.target.value);
   };
 
-  const handleClick = (e) => {
-    createTodo(todoText).then((data) =>
+  const expireDateHandler = (event) => {
+    setExpireDate(event.target.value);
+  };
+
+  const handleClick = () => {
+    createTodo(todoText, expireDate).then((data) =>
       setRemainingTodos([...remainingTodos, data])
     );
   };
 
   function updateLists(data) {
-    console.log(data)
+    console.log(data);
     if (data.finished === false) {
-      setFinishedTodos((todos) => todos.filter((todo) => todo.id !== data.id))
-      setRemainingTodos((currentTodos) => [...currentTodos, data])
+      setFinishedTodos((todos) => todos.filter((todo) => todo.id !== data.id));
+      setRemainingTodos((currentTodos) => [...currentTodos, data]);
     }
     if (data.finished === true) {
-      setRemainingTodos((todos) => todos.filter((todo) => todo.id !== data.id))
-      setFinishedTodos((currentTodos) => [...currentTodos, data])
+      setRemainingTodos((todos) => todos.filter((todo) => todo.id !== data.id));
+      setFinishedTodos((currentTodos) => [...currentTodos, data]);
     }
   }
 
-   const onChangeChecked = (id, text, finished) => {
-    updateTodo(id, text, finished).then((data) => updateLists(data));
+  const onChangeChecked = (id, text, finished, expireDate) => {
+    updateTodo(id, text, finished, expireDate).then((data) => updateLists(data));
   };
 
   return (
     <div>
-      <h1>Todo List</h1>
       <div id="todosDiv">
         <RemainingTodos
           todos={remainingTodos}
@@ -54,10 +60,15 @@ export function TodoPage() {
           todos={finishedTodos}
           onChangeChecked={onChangeChecked}
         />
+
         <AddTodo
-          handleChange={handleChange}
           handleClick={handleClick}
+          todoTextHandler={todoTextHandler}
+          expireDateHandler={expireDateHandler}
           todoText={todoText}
+          expireDate={expireDate}
+          popUp={popUp}
+          setPopUp={setPopUp}
         />
       </div>
     </div>

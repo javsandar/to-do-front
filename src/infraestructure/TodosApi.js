@@ -9,7 +9,7 @@ async function put(requestOptions, id) {
 }
 
 async function post(requestOptions) {
-  const response = await fetch("/todos", requestOptions);
+  const response = await fetch("/todos", requestOptions)
   return response.json();
 }
 

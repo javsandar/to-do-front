@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function Todo({ id, text, isFinished, onChangeChecked }) {
+export default function Todo({ id, text, isFinished, expireDate, onChangeChecked }) {
   const [isChecked, setIsChecked] = useState(isFinished);
   return (
     <li
@@ -18,7 +18,7 @@ export default function Todo({ id, text, isFinished, onChangeChecked }) {
         checked={isChecked}
         onChange={() => [
           setIsChecked(!isChecked),
-          onChangeChecked(id, text, !isChecked),
+          onChangeChecked(id, text, !isChecked, expireDate),
         ]}
       />
       {text}
