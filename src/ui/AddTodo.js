@@ -7,18 +7,22 @@ export function AddTodo({
   todoText,
   expireDate,
   popUp,
-  setPopUp
+  setPopUp,
 }) {
   return (
     <div id="addTodoDiv">
-      {popUp && <AddPopup
-        handleClick={handleClick}
-        todoTextHandler={todoTextHandler}
-        expireDateHandler={expireDateHandler}
-        todoText={todoText}
-        expireDate={expireDate}
-      />}
-      <button onClick={() => setPopUp(!popUp)}>Add task</button>
+      {popUp && (
+        <AddPopup
+          handleClick={handleClick}
+          todoTextHandler={todoTextHandler}
+          expireDateHandler={expireDateHandler}
+          todoText={todoText}
+          expireDate={expireDate}
+          popUp={popUp}
+          setPopUp={setPopUp}
+        />
+      )}
+      <button onClick={() => setPopUp(!popUp)}>Add todo</button>
     </div>
   );
 }

@@ -1,5 +1,5 @@
-async function getTodos() {
-  const response = await fetch("/todos");
+async function getTodos(parameters) {
+  const response = await fetch("/todos" + parameters);
   return response.json();
 }
 
@@ -9,14 +9,14 @@ async function put(requestOptions, id) {
 }
 
 async function post(requestOptions) {
-  const response = await fetch("/todos", requestOptions)
+  const response = await fetch("/todos", requestOptions);
   return response.json();
 }
 
 const TodosApiObj = {
   getTodos,
   post,
-  put
+  put,
 };
 
 export default TodosApiObj;

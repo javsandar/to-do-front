@@ -15,7 +15,7 @@ export function TodoPage() {
 
   const [popUp, setPopUp] = useState(false);
   useEffect(() => {
-    getTodos([false, null]).then((data) => setRemainingTodos(data));
+    getTodos([false, null]).then((data) => [setRemainingTodos(data)]);
     getTodos([true, null]).then((data) => setFinishedTodos(data));
   }, []);
 
@@ -37,20 +37,22 @@ export function TodoPage() {
     console.log(data);
     if (data.finished === false) {
       setFinishedTodos((todos) => todos.filter((todo) => todo.id !== data.id));
-      setRemainingTodos((currentTodos) => [...currentTodos, data]);
+      setRemainingTodos((prevTodos) => [...prevTodos, data]);
     }
     if (data.finished === true) {
       setRemainingTodos((todos) => todos.filter((todo) => todo.id !== data.id));
-      setFinishedTodos((currentTodos) => [...currentTodos, data]);
+      setFinishedTodos((prevTodos) => [...prevTodos, data]);
     }
   }
 
   const onChangeChecked = (id, text, finished, expireDate) => {
-    updateTodo(id, text, finished, expireDate).then((data) => updateLists(data));
+    updateTodo(id, text, finished, expireDate).then((data) =>
+      updateLists(data)
+    );
   };
 
   return (
-    <div>
+    <div className="container">
       <div id="todosDiv">
         <RemainingTodos
           todos={remainingTodos}
@@ -60,7 +62,6 @@ export function TodoPage() {
           todos={finishedTodos}
           onChangeChecked={onChangeChecked}
         />
-
         <AddTodo
           handleClick={handleClick}
           todoTextHandler={todoTextHandler}

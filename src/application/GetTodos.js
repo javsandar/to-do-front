@@ -1,14 +1,12 @@
 import TodosApiObj from "../infraestructure/TodosApi";
-import TodoAdapterObj from "../infraestructure/adapters/TodoAdapter";
 
-export default function getTodos(filter) {
-    if(filter.every((todo) => todo === null)){
-        return TodosApiObj.getTodos();
-    }
-    if(filter[0] === false){
-        return TodosApiObj.getTodos().then(data => data.filter((todo) => todo.finished === false));
-    }
-    if(filter[0] === true){
-        return TodosApiObj.getTodos().then(data => data.filter((todo) => todo.finished === true));
-    }
+export default function getTodos([finished, expireDate]) {
+  let parameters = "?";
+  if (finished !== null) {
+    parameters += "finished=" + finished + "&&";
+  }
+  if (expireDate !== null) {
+    parameters += "expireDate=" + expireDate + "&&";
+  }
+  return TodosApiObj.getTodos(parameters);
 }

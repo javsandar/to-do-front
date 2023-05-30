@@ -1,6 +1,12 @@
 import { useState } from "react";
 
-export default function Todo({ id, text, isFinished, expireDate, onChangeChecked }) {
+export default function Todo({
+  id,
+  text,
+  isFinished,
+  expireDate,
+  onChangeChecked,
+}) {
   const [isChecked, setIsChecked] = useState(isFinished);
   return (
     <li

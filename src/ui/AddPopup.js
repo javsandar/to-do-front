@@ -4,6 +4,8 @@ export default function AddPopup({
   expireDateHandler,
   todoText,
   expireDate,
+  popUp,
+  setPopUp,
 }) {
   return (
     <div id="popupDiv">
@@ -25,7 +27,8 @@ export default function AddPopup({
           onChange={expireDateHandler}
         ></input>
       </p>
-      <button onClick={handleClick}>Add</button>
+      <button onClick={handleClick}>Confirm</button>
+      <button onClick={() => setPopUp(!popUp)}>Close</button>
     </div>
   );
 }

@@ -9,14 +9,21 @@
   color: white;
   text-align: center;
 }
+.App-header {
+  width: 100%;
+  height: 100%;
+}
+
 
 #todosDiv {
-  width: 1000px;
-  height: 500px;
+  width: 80%;
+  height: 800px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   background-color: rgb(60, 61, 65);
+  margin-left: 200px;
+  margin-bottom: 200px;
 }
 
 #todosDiv,
@@ -39,8 +46,8 @@ ul {
 
 #addTodoDiv {
   position: absolute;
-  margin-top: 460px;
-  margin-left: 180px;
+  margin-top: 500px;
+  margin-left: 300px;
 }
 
 #navBarDiv {
@@ -65,12 +72,10 @@ ul {
 }
 
 #popupDiv {
-  position: fixed;
-  width: 300px;
-  height: 250px;
+  margin-left: 100px;
+  position: absolute;
   background-color: rgb(0, 0, 0);
   background-color: rgba(0, 0, 0, 0.4);
-  margin-left: 100px;
 }
 
 .todoInput {
@@ -78,14 +83,51 @@ ul {
   display: flex;
   margin: 35px;
   text-align: left;
-
 }
 
-.EditButton {
+/* .EditButton {
   background-image: url('C:\Users\djavsan\Downloads\editar.png');
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   height: 20px;
   width: 20px;
+} */
+
+/* NAVBAR */
+nav {
+  margin-left: 160px;
+  margin-bottom: 100px;
+}
+.menu ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+.menu li {
+  float: left;
+}
+
+.menu li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.menu li a:hover:not(.active) {
+  background-color: #0899fa;
+}
+
+.active {
+  background-color: #0899fa;
+}
+
+.calendarDiv {
+  width: 1500px;
+  margin-left: 200px;
 }
