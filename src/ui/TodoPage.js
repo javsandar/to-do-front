@@ -15,8 +15,8 @@ export function TodoPage() {
 
   const [popUp, setPopUp] = useState(false);
   useEffect(() => {
-    getTodos([false, null]).then((data) => [setRemainingTodos(data)]);
-    getTodos([true, null]).then((data) => setFinishedTodos(data));
+    getTodos([false, [null, null]]).then((data) => [setRemainingTodos(data)]);
+    getTodos([true, [null, null]]).then((data) => setFinishedTodos(data));
   }, []);
 
   const todoTextHandler = (event) => {

@@ -1,12 +1,15 @@
 import TodosApiObj from "../infraestructure/TodosApi";
 
-export default function getTodos([finished, expireDate]) {
+export default function getTodos([finished, [expireDate1, expireDate2]]) {
   let parameters = "?";
   if (finished !== null) {
-    parameters += "finished=" + finished + "&&";
+    parameters += "finished=" + finished + "&";
   }
-  if (expireDate !== null) {
-    parameters += "expireDate=" + expireDate + "&&";
+  if (expireDate1 !== null) {
+    parameters += "expireDate=" + expireDate1 + "&";
+  }
+  if (expireDate2 !== null) {
+    parameters += "expireDate=" + expireDate2 + "&";
   }
   return TodosApiObj.getTodos(parameters);
 }
